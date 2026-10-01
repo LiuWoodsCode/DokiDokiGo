@@ -1,88 +1,61 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import urlparse, parse_qs, quote_plus
-from html import escape
+from flask import Flask, render_template_string, request
 
 from ddgs import DDGS
 
 
-class SearchHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        params = parse_qs(urlparse(self.path).query)
-        query = params.get("q", [""])[0]
+app = Flask(__name__)
 
-        results = []
-        if query:
-            try:
-                results = DDGS().text(query, max_results=10)
-            except Exception as e:
-                results = [{"title": "Search error", "href": "#", "body": str(e)}]
-
-        result_html = ""
-
-        for result in results:
-            title = escape(result.get("title", ""))
-            href = escape(result.get("href", ""))
-            body = escape(result.get("body", ""))
-
-            result_html += f"""
-            <div class="result">
-                <a class="title" href="{href}">{title}</a>
-                <div class="url">{href}</div>
-                <div class="description">{body}</div>
-            </div>
-            """
-
-        page = f"""<!DOCTYPE html>
+PAGE = """<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{escape(query) if query else "Search"}</title>
+    <title>{{ query or "Search" }}</title>
 
     <style>
-        body {{
+        body {
             font-family: Arial, sans-serif;
             margin: 40px auto;
             padding: 0 20px;
-        }}
+        }
 
-        form {{
+        form {
             margin-bottom: 35px;
-        }}
+        }
 
-        input {{
+        input {
             width: 70%;
             padding: 12px;
             font-size: 16px;
-        }}
+        }
 
-        button {{
+        button {
             padding: 12px 20px;
             font-size: 16px;
-        }}
+        }
 
-        .result {{
+        .result {
             margin-bottom: 28px;
-        }}
+        }
 
-        .title {{
+        .title {
             font-size: 20px;
             color: #1a0dab;
             text-decoration: none;
-        }}
+        }
 
-        .title:hover {{
+        .title:hover {
             text-decoration: underline;
-        }}
+        }
 
-        .url {{
+        .url {
             color: #188038;
             font-size: 14px;
             margin: 4px 0;
-        }}
+        }
 
-        .description {{
+        .description {
             line-height: 1.4;
-        }}
+        }
     </style>
 </head>
 
@@ -91,26 +64,39 @@ class SearchHandler(BaseHTTPRequestHandler):
     <form action="/search" method="GET">
         <input
             name="q"
-            value="{escape(query)}"
+            value="{{ query }}"
             placeholder="Search..."
             autofocus
         >
         <button type="submit">Search</button>
     </form>
 
-    {result_html}
+    {% for result in results %}
+    <div class="result">
+        <a class="title" href="{{ result.href }}">{{ result.title }}</a>
+        <div class="url">{{ result.href }}</div>
+        <div class="description">{{ result.body }}</div>
+    </div>
+    {% endfor %}
 
 </body>
 </html>
 """
 
-        body = page.encode("utf-8")
 
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
+@app.get("/")
+@app.get("/search")
+def search():
+    query = request.args.get("q", "")
+    results = []
+    if query:
+        try:
+            results = DDGS().text(query, max_results=10)
+        except Exception as exc:
+            results = [{"title": "Search error", "href": "#", "body": str(exc)}]
+
+    return render_template_string(PAGE, query=query, results=results)
 
 
-HTTPServer(("0.0.0.0", 8080), SearchHandler).serve_forever()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
