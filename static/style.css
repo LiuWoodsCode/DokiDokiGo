@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    background-color: var(--fill-color);
+    color: var(--neutral-foreground-rest);
+    font-family: system-ui;
 }
 
 .home-page {
@@ -10,13 +13,14 @@ body {
 }
 
 .home-content {
-    width: min(100%, 620px);
+    width: 100%;
     margin-top: -10vh;
     text-align: center;
 }
 
 .home-title {
     margin: 0 0 32px;
+    font-size: 3rem;
 }
 
 .search-form {
@@ -26,7 +30,7 @@ body {
     width: 100%;
 }
 
-.search-form fluent-text-input {
+.search-form fluent-text-field {
     flex: 1;
     min-width: 0;
     max-width: none;
@@ -35,21 +39,78 @@ body {
 .results-header {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 32px;
     padding: 24px 32px;
 }
 
 .results-header .search-form {
-    max-width: 690px;
+    flex: 1;
+    min-width: 0;
+}
+
+.site-name {
+    color: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.result-title {
+    margin: 0;
+    color: #145da0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.result-url {
+    margin: 8px 0;
+    color: #137653;
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+}
+
+.result-body {
+    margin: 0;
+    color: #34465a;
+    line-height: 1.55;
 }
 
 .results-content {
-    width: min(100% - 48px, 690px);
-    margin: 28px 0 60px min(216px, 16vw);
+    margin: 32px 32px 72px;
 }
 
-.result {
-    margin-bottom: 30px;
+.result + .result {
+    margin-top: 24px;
+}
+
+.result-link {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+}
+
+.result-link:hover .result-title {
+    text-decoration: underline;
+}
+
+.result-link:focus-visible {
+    outline: 3px solid #4da9ec;
+    outline-offset: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .result-title {
+        color: #83c8ff;
+    }
+
+    .result-url {
+        color: #8bd3ae;
+    }
+
+    .result-body {
+        color: #d7e2ec;
+    }
 }
 
 @media (max-width: 700px) {
@@ -60,8 +121,12 @@ body {
         padding: 20px 24px;
     }
 
+    .results-header .search-form {
+        width: 100%;
+    }
+
     .results-content {
-        margin-left: 24px;
+        margin: 24px 24px 60px;
     }
 }
 

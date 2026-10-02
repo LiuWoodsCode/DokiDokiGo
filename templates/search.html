@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ query or 'Search' }} - DokiDokiGo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script type="module" src="{{ url_for('static', filename='fwc.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='theme.js') }}"></script>
 </head>
 <body class="results-page">
     <header class="results-header">
-        <fluent-text size="600" weight="semibold"><fluent-link href="{{ url_for('index') }}">DokiDokiGo</fluent-link></fluent-text>
+        <a class="site-name" href="{{ url_for('index') }}">DokiDokiGo</a>
         <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
-            <fluent-text-input name="q" type="search" control-size="large" value="{{ query }}" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-input>
-            <fluent-button type="submit" appearance="primary" size="large">Search</fluent-button>
+            <fluent-text-field name="q" type="search" appearance="outline" value="{{ query }}" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-field>
+            <fluent-button type="submit" appearance="accent">Search</fluent-button>
         </form>
     </header>
     <fluent-divider></fluent-divider>
@@ -20,9 +20,11 @@
     <main class="results-content">
         {% for result in results %}
         <article class="result">
-            <fluent-text size="500" block><fluent-link href="{{ result.href }}">{{ result.title }}</fluent-link></fluent-text>
-            <fluent-text size="200" block>{{ result.href }}</fluent-text>
-            <fluent-text block>{{ result.body }}</fluent-text>
+            <a class="result-link" href="{{ result.href }}">
+                <h2 class="result-title">{{ result.title }}</h2>
+                <p class="result-url">{{ result.href }}</p>
+                <p class="result-body">{{ result.body }}</p>
+            </a>
         </article>
         {% endfor %}
     </main>

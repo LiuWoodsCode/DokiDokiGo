@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DokiDokiGo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script type="module" src="{{ url_for('static', filename='fwc.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='theme.js') }}"></script>
 </head>
 <body class="home-page">
     <main class="home-content">
-        <h1 class="home-title"><fluent-text size="1000" weight="semibold">DokiDokiGo</fluent-text></h1>
+        <h1 class="home-title">DokiDokiGo</h1>
         <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
-            <fluent-text-input name="q" type="search" control-size="large" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-input>
-            <fluent-button type="submit" appearance="primary" size="large">Search</fluent-button>
+            <fluent-text-field name="q" type="search" appearance="outline" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-field>
+            <fluent-button type="submit" appearance="accent">Search</fluent-button>
         </form>
     </main>
 </body>
