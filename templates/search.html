@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ query or 'Search' }} - DokiDokiGo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="results-page">
+    <header class="results-header">
+        <a class="logo logo-small" href="{{ url_for('index') }}">DokiDokiGo</a>
+        <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
+            <label class="visually-hidden" for="results-query">Search the web</label>
+            <input id="results-query" name="q" type="search" value="{{ query }}" placeholder="Search the web" required autofocus>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <main class="results-content">
+        {% for result in results %}
+        <article class="result">
+            <a class="result-title" href="{{ result.href }}">{{ result.title }}</a>
+            <div class="result-url">{{ result.href }}</div>
+            <p class="result-description">{{ result.body }}</p>
+        </article>
+        {% endfor %}
+    </main>
+</body>
+</html>

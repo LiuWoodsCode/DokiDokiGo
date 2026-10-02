@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DokiDokiGo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-page">
+    <main class="home-content">
+        <h1 class="logo">DokiDokiGo</h1>
+        <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
+            <label class="visually-hidden" for="home-query">Search the web</label>
+            <input id="home-query" name="q" type="search" placeholder="Search the web" required autofocus>
+            <button type="submit">Search</button>
+        </form>
+    </main>
+</body>
+</html>
