@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    background-color: var(--fill-color);
-    color: var(--neutral-foreground-rest);
-    font-family: system-ui;
+    background-color: var(--appBackground);
+    color: var(--colorNeutralForeground1);
+    font-family: var(--fontFamilyBase, system-ui);
 }
 
 .home-page {
@@ -30,7 +30,7 @@ body {
     width: 100%;
 }
 
-.search-form fluent-text-field {
+.search-form fluent-text-input {
     flex: 1;
     min-width: 0;
     max-width: none;

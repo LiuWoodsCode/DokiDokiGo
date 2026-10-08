@@ -11,9 +11,60 @@
     <header class="results-header">
         <a class="site-name" href="{{ url_for('index') }}">DokiDokiGo</a>
         <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
-            <fluent-text-field name="q" type="search" appearance="outline" value="{{ query }}" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-field>
-            <fluent-button type="submit" appearance="accent">Search</fluent-button>
+            <fluent-text-input name="q" type="search" appearance="outline" value="{{ query }}" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-input>
+            <fluent-button type="submit" appearance="primary">Search</fluent-button>
         </form>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+  <fluent-tablist
+    activeid="third-tab"
+    role="tablist"
+    focusgroup="tablist inline block"
+    orientation="horizontal"
+    appearance="transparent"
+  >
+    <fluent-tab
+      id="first-tab"
+      slot="tab"
+      role="tab"
+      tabindex="-1"
+      aria-selected="false"
+      data-fg-ati="0"
+    >
+      First Tab
+    </fluent-tab>
+    <fluent-tab
+      id="second-tab"
+      slot="tab"
+      role="tab"
+      tabindex="-1"
+      aria-selected="false"
+      data-fg-ati="0"
+    >
+      Second Tab
+    </fluent-tab>
+    <fluent-tab
+      id="third-tab"
+      aria-selected="true"
+      slot="tab"
+      role="tab"
+      tabindex="0"
+      focusgroupstart
+      data-fg-ati="0"
+    >
+      Third Tab
+    </fluent-tab>
+    <fluent-tab
+      id="fourth-tab"
+      slot="tab"
+      role="tab"
+      tabindex="-1"
+      aria-selected="false"
+      data-fg-ati="0"
+    >
+      Fourth Tab
+    </fluent-tab>
+  </fluent-tablist>
+</div>
     </header>
     <fluent-divider></fluent-divider>
 

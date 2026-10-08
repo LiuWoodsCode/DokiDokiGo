@@ -11,8 +11,8 @@
     <main class="home-content">
         <h1 class="home-title">DokiDokiGo</h1>
         <form class="search-form" action="{{ url_for('search') }}" method="get" role="search">
-            <fluent-text-field name="q" type="search" appearance="outline" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-field>
-            <fluent-button type="submit" appearance="accent">Search</fluent-button>
+            <fluent-text-input name="q" type="search" appearance="outline" placeholder="Search the web" aria-label="Search the web" required autofocus></fluent-text-input>
+            <fluent-button type="submit" appearance="primary">Search</fluent-button>
         </form>
     </main>
 </body>
