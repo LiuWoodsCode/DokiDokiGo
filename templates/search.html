@@ -16,7 +16,7 @@
         </form>
         <div style="display: flex; flex-direction: column; gap: 1rem;">
   <fluent-tablist
-    activeid="third-tab"
+    activeid="first-tab"
     role="tablist"
     focusgroup="tablist inline block"
     orientation="horizontal"
@@ -27,7 +27,8 @@
       slot="tab"
       role="tab"
       tabindex="-1"
-      aria-selected="false"
+      aria-selected="true"
+      focusgroupstart
       data-fg-ati="0"
     >
       First Tab
@@ -44,11 +45,10 @@
     </fluent-tab>
     <fluent-tab
       id="third-tab"
-      aria-selected="true"
+      aria-selected="false"
       slot="tab"
       role="tab"
       tabindex="0"
-      focusgroupstart
       data-fg-ati="0"
     >
       Third Tab
